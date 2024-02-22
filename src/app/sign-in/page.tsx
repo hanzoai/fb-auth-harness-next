@@ -1,14 +1,18 @@
-import { redirect } from "next/navigation";
+import { redirect } from 'next/navigation'
 
-import { isUserAuthenticated } from "@/lib/firebase/firebase-admin";
-import PageContent from "../_components/PageContent";
+import { isUserAuthenticated } from '@/lib/firebase/firebase-admin'
+
+import 
+
+import SignIn from './sign-in'
 
 export default async function SignInPage() {
-  if (await isUserAuthenticated()) redirect("/dashboard");
+
+  if (await isUserAuthenticated()) redirect('/dashboard')
 
   return (
-    <main className="container">
-      <PageContent variant="sign-in" />
+    <main className='container'>
+      <SignIn />
     </main>
-  );
+  )
 }

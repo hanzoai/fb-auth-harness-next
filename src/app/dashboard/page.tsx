@@ -1,15 +1,11 @@
-import { redirect } from "next/navigation";
-
-import { getCurrentUser } from "@/lib/firebase/firebase-admin";
-import PageContent from "../_components/PageContent";
+import PageContent from '@/components/PageContent'
+import Main from '@/components/Main'
 
 export default async function DashboardPage() {
-  const currentUser = await getCurrentUser();
-  if (!currentUser) redirect("/sign-in");
 
   return (
-    <main className="container">
-      <PageContent variant="dashboard" currentUser={currentUser.toJSON() as typeof currentUser} />
-    </main>
-  );
+    <Main>
+      <PageContent variant='dashboard'  />
+    </Main>
+  )
 }

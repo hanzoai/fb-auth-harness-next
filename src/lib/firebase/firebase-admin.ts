@@ -3,7 +3,7 @@ import 'server-only'
 import { cookies } from 'next/headers'
 
 import { initializeApp, getApps, cert } from 'firebase-admin/app'
-import { type SessionCookieOptions, getAuth } from 'firebase-admin/auth'
+import { type SessionCookieOptions, type UserRecord, getAuth } from 'firebase-admin/auth'
 
 export const firebaseApp =
   getApps().find((it) => it.name === 'firebase-admin-app') ||
@@ -28,7 +28,7 @@ export async function isUserAuthenticated(session: string | undefined = undefine
   }
 }
 
-export async function getCurrentUser() {
+export async function getCurrentUser(): Promise<UserRecord | null> {
   const session = await getSession()
 
   if (!(await isUserAuthenticated(session))) {
@@ -58,4 +58,8 @@ export async function revokeAllSessions(session: string) {
   const decodedIdToken = await auth.verifySessionCookie(session)
 
   return await auth.revokeRefreshTokens(decodedIdToken.sub)
+}
+
+export {
+  type UserRecord
 }
